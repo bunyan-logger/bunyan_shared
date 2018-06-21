@@ -1,9 +1,9 @@
-defmodule BunyanLevel.MixProject do
+defmodule BunyanShared.MixProject do
   use Mix.Project
 
   def project do
     [
-      app:      :bunyan_level,
+      app:      :bunyan_shared,
       version:  "0.1.0",
       elixir:   "~> 1.6",
       deps:     [],
