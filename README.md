@@ -1,21 +1,8 @@
-# BunyanLevel
+# Bunyan.Level
 
-**TODO: Add description**
+The Bunyan logging system uses plugs to source events and to write log
+messages. These plugs are loaded as dependencies of Bunyan.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `bunyan_level` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:bunyan_level, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/bunyan_level](https://hexdocs.pm/bunyan_level).
-
+Both the plugins and the main Bunyan program need access to the
+functions that define the log levels. Plitting the levels into their own
+application resolves the circular dependencies.
