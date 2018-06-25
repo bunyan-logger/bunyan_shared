@@ -1,4 +1,9 @@
 # Bunyan.Shared
+
+<!-- bunyan_header -->
+
+### Summary
+
 The Bunyan logging system uses plugs to source events and to write log
 messages. These plugs are loaded as dependencies of Bunyan.
 
