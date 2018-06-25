@@ -18,14 +18,16 @@ defmodule Bunyan.Shared.LogMsg do
   * `node` is the node on which that process lived
   """
 
+  @type level_as_number :: 0 | 10 | 20 | 30
+
   @type t :: %{
-    __struct__:   Bunyan.Shared.LogMsg,
-    level:     0 | 10 | 20 | 30,
-    msg:       binary | ( -> binary ),
-    extra:     any,
-    timestamp: non_neg_integer,
-    pid:       pid,
-    node:      atom
+    __struct__: Bunyan.Shared.LogMsg,
+    level:      level_as_number,
+    msg:        binary | ( -> binary ),
+    extra:      any,
+    timestamp:  non_neg_integer,
+    pid:        pid,
+    node:       atom
   }
 
   defstruct(
