@@ -16,22 +16,26 @@ defmodule Bunyan.Shared.Writable do
 
   @callback start(config :: map()) :: any()
 
+
   defmacro __using__(args \\ []) do
 
     caller = __CALLER__.module
     state_module  = args[:state_module]  || Module.concat(caller,  State)
+    server_module = args[:server_module] || Module.concat(caller,  Server)
 
     quote do
-      @behaviour unquote(__MODULE__)
-
-      @spec initialize_writer(options :: keyword()) :: any()
-      def initialize_writer(options) do
-        unquote(state_module).from(options)
-        |> start()
+      def child_spec(config) do
+        Supervisor.child_spec({
+          unquote(server_module),
+          state_from_config(config)
+         }, [])
       end
+      defoverridable child_spec: 1
 
+      def state_from_config(config) do
+        unquote(state_module).from(config)
+      end
     end
   end
-
 
 end

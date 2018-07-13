@@ -1,6 +1,8 @@
 
 defmodule Bunyan.Shared.Level do
 
+  @type type_as_number :: 0 | 10 | 20 | 30
+
   @type t :: ( :debug | :info | :warn | :error )
 
   @compile { :inline,

@@ -52,24 +52,40 @@ defmodule Bunyan.Shared.Readable do
   @type collector :: pid() | atom()
 
 
-  @callback start(config :: map()) :: any()
+  @doc """
+  If called in Bunyan.Source.Api, this generates
 
+  ~~~ elixir
+  def child_spec({ collector, config }) do
+
+    Supervisor.child_spec({ Bunyan.Source.Api.Server, state }, [])
+  end
+
+  def state_from_config(collector, config) do
+    Readable.validate_collector(Bunyan.Source.Api, collector)
+    Bunyan.Source.Api.State.from(config) |> Map.put(:collector, collector)
+  end
+  ~~~
+  """
   defmacro __using__(args \\ []) do
 
     caller = __CALLER__.module
-    state_module  = args[:state_module] || Module.concat(caller,  State)
+    state_module  = args[:state_module]  || Module.concat(caller,  State)
+    server_module = args[:server_module] || Module.concat(caller,  Server)
 
     quote do
-      @behaviour unquote(__MODULE__)
-
-      @spec initialize_source(collector :: unquote(__MODULE__).collector, options :: keyword()) :: any()
-      def initialize_source(collector, options) do
-        unquote(__MODULE__).validate_collector(unquote(caller), collector)
-        unquote(state_module).from(options)
-        |> Map.put(:collector, collector)
-        |> start()
+      def child_spec({ collector, config }) do
+        Supervisor.child_spec({
+          unquote(server_module),
+          state_from_config(collector, config)
+         }, [])
       end
+      defoverridable child_spec: 1
 
+      def state_from_config(collector, config) do
+        unquote(__MODULE__).validate_collector(unquote(caller), collector)
+        unquote(state_module).from(config) |> Map.put(:collector, collector)
+      end
     end
   end
 
