@@ -17,10 +17,11 @@ defmodule Bunyan.Shared.Build do
 
   defp package(name) do
     [
-      name: name,
-      files: ["lib", "priv", "mix.exs", "README.md", "shared_build_stuff/*"],
-      licenses: ["Apache 2.0"],
-      links: %{"GitHub" => "https://github.com/pragdave/#{name}"}
+      name:        name,
+      files:       ["lib", "priv", "mix.exs", "README.md", "shared_build_stuff/*"],
+      licenses:    ["Apache 2.0"],
+      links:       %{"GitHub" => "https://github.com/pragdave/#{name}"},
+      maintainers: [ "Dave Thomas <dave@pragdave.me>" ]
     ]
   end
 
