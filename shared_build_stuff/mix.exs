@@ -1,6 +1,20 @@
 defmodule Bunyan.Shared.Build do
+
+
+  @moduledoc """
+  This file is manually included in each Bunyan mix.exs. It provides a
+  couple of common helpers for the build process.
+  """
+
   def is_developer? do
-    !!(System.get_env("BUNYAN_DEVELOPER") || System.get_env("THIS_IS_THE_REAL_ME") == "dave")
+    cond do
+      Mix.env == :prod                                 -> false
+      System.get_env("BUNYAN_DEVELOPER")               -> true
+      System.get_env("THIS_IS_THE_REAL_ME") == "dave"  -> true
+
+      :else ->
+        false
+    end
   end
 
   def project(name, version, deps, description) do
@@ -18,10 +32,15 @@ defmodule Bunyan.Shared.Build do
   defp package(name) do
     [
       name:        name,
-      files:       ["lib", "priv", "mix.exs", "README.md", "shared_build_stuff/*"],
+      files:       ["lib", "mix.exs", "README.md", "shared_build_stuff/*"],
       licenses:    ["Apache 2.0"],
-      links:       %{"GitHub" => "https://github.com/pragdave/#{name}"},
-      maintainers: [ "Dave Thomas <dave@pragdave.me>" ]
+      links:       %{
+        "GitHub" => "https://github.com/pragdave/#{name}",
+        "Bunyan" => "https://github.com/pragdave/bunyan",
+        },
+      maintainers: [
+        "Dave Thomas <dave@pragdave.me>" ,
+      ]
     ]
   end
 
@@ -39,7 +58,7 @@ defmodule Bunyan.Shared.Build do
   end
 
   defp one_bunyan_dep(name, _version, true) do
-    { name, path: "../#{name}" }
+    { name, path: "../#{name}", override: true }
   end
 
   defp one_bunyan_dep(name, version, false) do
