@@ -58,7 +58,7 @@ defmodule Bunyan.Shared.Build do
   end
 
   defp one_bunyan_dep(name, _version, true) do
-    { name, path: "../#{name}", override: true }
+    { name, path: "../#{name}", override: true, env: Mix.env }
   end
 
   defp one_bunyan_dep(name, version, false) do
