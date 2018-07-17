@@ -7,7 +7,6 @@ defmodule BunyanShared.MixProject do
   def project do
     Build.project(
       :bunyan_shared,
-      "0.5.0",
       &deps/1,
       "Shared functionality of the Bunyan distributed and pluggable logging system"
     )

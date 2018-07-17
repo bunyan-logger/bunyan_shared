@@ -1,5 +1,6 @@
 defmodule Bunyan.Shared.Build do
 
+  @version "0.5.2"
 
   @moduledoc """
   This file is manually included in each Bunyan mix.exs. It provides a
@@ -17,10 +18,10 @@ defmodule Bunyan.Shared.Build do
     end
   end
 
-  def project(name, version, deps, description) do
+  def project(name, deps, description) do
     [
       app:             name,
-      version:         version,
+      version:         @version,
       elixir:          "~> 1.6",
       deps:            build_deps(deps.(Mix.env)),
       description:     description,
