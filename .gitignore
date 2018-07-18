@@ -24,3 +24,4 @@ bunyan_level-*.tar
 
 /.elixir_ls/
 .formatter.exs
+mix.lock
