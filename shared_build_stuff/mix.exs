@@ -1,6 +1,6 @@
 defmodule Bunyan.Shared.Build do
 
-  @version "0.5.2"
+  @version "0.5.3"
 
   @moduledoc """
   This file is manually included in each Bunyan mix.exs. It provides a
